@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: clientecito
+  namespace: aplicacioncita
+spec:
+  selector:
+    matchLabels:
+      aplicacion: clientecito
+  replicas: 3
+  template:
+    metadata:
+      labels:
+        aplicacion: clientecito
+    spec:
+      containers:
+        - name: clientecito-php
+          image: php:8.2-apache
+          env:
+            - name: VARIABLE
+              value: valor

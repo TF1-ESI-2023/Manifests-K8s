@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: paja-res
+  namespace: aplicacioncita
+data:
+  DB_HOST: "192.168.1.10"
+  DB_USER: "root"
+  DB_NAME: "base"
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: res-paja
+  namespace: aplicacioncita
+data:
+  ARCHIVO: |-
+        <?php 
+                echo "Hola <br>" ; 
+                phpinfo();

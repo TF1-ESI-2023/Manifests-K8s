@@ -1,0 +1,41 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: backend
+  namespace: aplicacioncita
+spec:
+  selector:
+    matchLabels:
+      aplicacion: backend
+  replicas: 2
+  template:
+    metadata:
+      labels:
+        aplicacion: backend
+    spec:
+      containers:
+        - name: backend-php
+          image: php:7.4-apache
+          ports:
+            - containerPort: 80
+          envFrom:
+            - configMapRef:
+                name: paja-res
+            - secretRef:
+                name: paja-secreta
+          volumeMounts:
+            - mountPath: /var/www/html/index.php
+              subPath: index.php
+              name: index
+            - mountPath: /var/www/html 
+              name: turbo-p
+      volumes:
+        - name: index
+          configMap:
+            name: res-paja
+            items:
+              - key: ARCHIVO
+                path: index.php
+        - name: turbo-p
+          persistentVolumeClaim:
+             claimName: turbo-paja
